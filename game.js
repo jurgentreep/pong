@@ -48,8 +48,6 @@ canvas.addEventListener('mousemove', function(event) {
     paddle.ypos = y - (paddle.height / 2)
 })
 
-console.log(paddle.bottom)
-
 function init() {
     window.requestAnimationFrame(draw)
 }
