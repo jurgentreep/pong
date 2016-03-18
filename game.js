@@ -1,5 +1,3 @@
-var canvas = document.getElementById('pong')
-var ctx = canvas.getContext('2d')
 var xpos = 0
 var speed = 5
 var direction = true
@@ -23,9 +21,16 @@ var ball = {
     }
 }
 
-setInterval(function() {
-    ctx.fillStyle = 'white'
-    ctx.fillRect(0,0,800,600)
+function init() {
+    window.requestAnimationFrame(draw)
+}
+
+function draw() {
+    var ctx = document.getElementById('pong').getContext('2d')
+
+    ctx.globalCompositeOperation = 'destination-over'
+    ctx.clearRect(0,0,800,600)
+
     ctx.fillStyle = 'black'
     if (ball.xpos == 800 - ball.width || ball.ypos == 600 - ball.height) direction = false
     if (ball.xpos == 0 || ball.ypos == 0) direction = true
@@ -38,4 +43,8 @@ setInterval(function() {
     }
     ctx.fillRect(ball.xpos, ball.ypos, ball.height, ball.width)
     xpos += 5
-}, (1000/60))
+
+    window.requestAnimationFrame(draw)
+}
+
+init()
