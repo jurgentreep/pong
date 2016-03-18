@@ -23,8 +23,8 @@ var ball = {
     },
     hitWall: function() {
         if (this.ypos < 0) return 'top'
-        if (this.xpos > canvasWidth) return 'right'
-        if (this.ypos > canvasHeight) return 'bottom'
+        if (this.xpos > canvasWidth - ball.width) return 'right'
+        if (this.ypos > canvasHeight - ball.height) return 'bottom'
         if (this.xpos < 0) return 'left'
         return false
     }
