@@ -6,6 +6,7 @@ var canvasHeight = 600
 var counter = 0
 var canvas = document.getElementById('pong')
 var ctx = canvas.getContext('2d')
+var hits = 0
 
 var ball = {
     xpos: 0,
@@ -71,13 +72,16 @@ function draw() {
             break
     }
 
-    if (ball.ypos > paddle.ypos && ball.ypos < (paddle.ypos + paddle.height) && ball.xpos > canvasWidth - ball.width) console.log('hit')
+    if (ball.ypos > paddle.ypos && ball.ypos < (paddle.ypos + paddle.height) && ball.xpos > canvasWidth - ball.width) hits++
 
     moveBall(directionX, directionY)
 
     ctx.fillRect(ball.xpos, ball.ypos, ball.width, ball.height)
 
     ctx.fillRect(paddle.xpos, paddle.ypos, paddle.width, paddle.height)
+
+    ctx.font = '30px consolas'
+    ctx.fillText('Hits: ' + hits, 10, 30)
 
     window.requestAnimationFrame(draw)
 }
