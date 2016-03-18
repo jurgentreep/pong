@@ -65,7 +65,6 @@ function draw() {
 }
 
 function moveBall(directionX, directionY) {
-    console.log(ball.xpos + ', ' + ball.ypos)
     directionX ? ball.moveRight() : ball.moveLeft()
     directionY ? ball.moveDown() : ball.moveUp()
 }
