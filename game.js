@@ -1,8 +1,11 @@
-var speed = 5
+var speed = 3
 var directionX = true
 var directionY = true
 var canvasWidth = 800
 var canvasHeight = 600
+var counter = 0
+var canvas = document.getElementById('pong')
+var ctx = canvas.getContext('2d')
 
 var ball = {
     xpos: 0,
@@ -30,17 +33,26 @@ var ball = {
     }
 }
 
+var paddle = {
+    xpos: canvasWidth - 20,
+    ypos: 0,
+    height: 100,
+    width: 20
+}
+
+canvas.addEventListener('mousemove', function(event) {
+    var rect = canvas.getBoundingClientRect()
+    var x = event.clientX - rect.left
+    var y = event.clientY - rect.top
+    paddle.ypos = y
+})
+
 function init() {
     window.requestAnimationFrame(draw)
 }
 
 function draw() {
-    var ctx = document.getElementById('pong').getContext('2d')
-
-    ctx.globalCompositeOperation = 'destination-over'
     ctx.clearRect(0, 0, canvasWidth, canvasWidth)
-
-    ctx.fillStyle = 'black'
 
     switch (ball.hitWall()) {
         case 'top':
@@ -59,7 +71,9 @@ function draw() {
 
     moveBall(directionX, directionY)
 
-    ctx.fillRect(ball.xpos, ball.ypos, ball.height, ball.width)
+    ctx.fillRect(ball.xpos, ball.ypos, ball.width, ball.height)
+
+    ctx.fillRect(paddle.xpos, paddle.ypos - paddle.height / 2, paddle.width, paddle.height)
 
     window.requestAnimationFrame(draw)
 }
