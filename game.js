@@ -44,8 +44,10 @@ canvas.addEventListener('mousemove', function(event) {
     var rect = canvas.getBoundingClientRect()
     var x = event.clientX - rect.left
     var y = event.clientY - rect.top
-    paddle.ypos = y
+    paddle.ypos = y - (paddle.height / 2)
 })
+
+console.log(paddle.bottom)
 
 function init() {
     window.requestAnimationFrame(draw)
@@ -69,11 +71,13 @@ function draw() {
             break
     }
 
+    if (ball.ypos > paddle.ypos && ball.ypos < (paddle.ypos + paddle.height) && ball.xpos > canvasWidth - ball.width) console.log('hit')
+
     moveBall(directionX, directionY)
 
     ctx.fillRect(ball.xpos, ball.ypos, ball.width, ball.height)
 
-    ctx.fillRect(paddle.xpos, paddle.ypos - paddle.height / 2, paddle.width, paddle.height)
+    ctx.fillRect(paddle.xpos, paddle.ypos, paddle.width, paddle.height)
 
     window.requestAnimationFrame(draw)
 }
